@@ -10,10 +10,12 @@ public class FilmeController : ControllerBase
     private static List<Filme> filmes = new List<Filme>();
 
     [HttpPost]
-    public void AdicionaFilme([FromBody] Filme filme)
+    public IActionResult AdicionaFilme([FromBody] Filme filme)
     {
         filmes.Add(filme);
-        Console.WriteLine(filme.Titulo);
-        Console.WriteLine(filme.Duracao);
+
+        Console.WriteLine($"Filme adicionado: {filme.Titulo}, Duração: {filme.Duracao}");
+
+        return CreatedAtAction(nameof(AdicionaFilme), new { id = filmes.Count }, filme);
     }
 }
